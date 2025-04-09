@@ -4,7 +4,7 @@ const HeroImage1 = () => {
     <div className="absolute inset-0 bg-black opacity-20 h-24 md:h-91">
     </div>
     <h3 className="text-white font-semibold text-sm lg:text-5xl w-1/2 text-center z-20">
-    Lassen Dich inspirieren, kochen Sie mit Leidenschaft und erlebe unvergessliche Momente bei Tisch.
+    Lass Dich inspirieren, koche mit Leidenschaft und erlebe unvergessliche Momente bei Tisch.
         </h3>
 </div>
      );
