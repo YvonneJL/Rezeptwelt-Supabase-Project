@@ -7,7 +7,7 @@ const Layout = () => {
 
 const location = useLocation()
 
-const showHeroImage1 = location.pathname === "/" || location.pathname === "/about" || location.pathname === "/recipes" || location.pathname === "/addrecipes"
+const showHeroImage1 = location.pathname === "/" || location.pathname === "/about" || location.pathname === "/recipes" || location.pathname === "/addrecipes" || location.pathname === "/signup" || location.pathname === "/login"
 
 
 

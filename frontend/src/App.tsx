@@ -8,6 +8,8 @@ import supabase from "./utils/supabase"
 import RecipeDetail from "./pages/RecipeDetail"
 import AddRecipe from "./pages/AddRecipe"
 import EditRecipe from "./pages/EditRecipe"
+import SignUp from "./pages/SignUp"
+import Login from "./pages/Login"
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
 <Route path="/:recipeIdParam" element={<RecipeDetail/>}/>
 <Route path="/addrecipe" element={<AddRecipe/>}/>
 <Route path="/editrecipe/:idParam" element={<EditRecipe/>}/>
+<Route path="/signup" element={<SignUp/>}/>
+<Route path="/login" element={<Login/>}/>
     </Route>
   ))
 
