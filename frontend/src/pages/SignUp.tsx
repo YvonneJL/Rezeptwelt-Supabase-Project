@@ -1,18 +1,16 @@
 import { useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces";
-import { mainContext } from "../context/Mainprovider";
+
 import supabase from "../utils/supabase";
+import { mainContext } from "../context/Mainprovider";
+import { ILoggedInProps } from "./Login";
 
 interface IUserProps {
     user: IUser
     setUser: (value: IUser) => void
 }
 
-export interface ILoggedInProps {
-    isLoggedIn: boolean
-    setIsLoggedIn: (value: boolean) => void
-}
 
 const SignUp = () => {
 
@@ -21,7 +19,7 @@ const SignUp = () => {
     //aus dem Mainprovider, um überall auf user zugreifen zu können
     //interface in interfaces.ts
     const {user, setUser} = useContext(mainContext) as IUserProps
-    const {isLoggedIn, setIsLoggedIn} = useContext(mainContext) as ILoggedInProps
+    const {setIsLoggedIn} = useContext(mainContext) as ILoggedInProps
 
     //useRef um auf die Input Inhalte zugreifen zu können
     const usernameRef = useRef<HTMLInputElement>(null)

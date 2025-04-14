@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { mainContext } from "../context/Mainprovider";
 import supabase from "../utils/supabase";
-import { ILoggedInProps } from "../pages/SignUp";
+import { ILoggedInProps } from "../pages/Login";
 
 
 const Nav = () => {
@@ -45,6 +45,7 @@ const Nav = () => {
             </article>
             {/* hier wird getoggelt je nachdem ob man eingeloggt ist oder nicht */}
             {!hideSignUp && !isLoggedIn && <Link to={"/signup"} className="font-bold text-sm transform hover:scale-120 transition-all duration-300">Sign up</Link>}
+            {isLoggedIn && <Link to=""><img src="../../public/images/Vector.svg" alt="Profile Icon" /></Link>}
             {isLoggedIn && <button onClick={logout} className="font-bold text-sm transform hover:scale-120 transition-all duration-300">Log Out</button>}
         </nav>
      );

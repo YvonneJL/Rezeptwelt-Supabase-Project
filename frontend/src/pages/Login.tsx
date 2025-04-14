@@ -1,8 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../utils/supabase";
-import { ILoggedInProps } from "./SignUp";
 import { mainContext } from "../context/Mainprovider";
+
+export interface ILoggedInProps {
+    isLoggedIn: boolean
+    setIsLoggedIn: (value: boolean) => void
+}
 
 const Login = () => {
 
@@ -14,6 +18,7 @@ const Login = () => {
     //um beim Eingeben falsches PW oder Email eine message anzeigen zu lassen
     const [message, setMessage] = useState<string>("")
 
+    //brauche ich hier, weil ich isLoggedIn auf falsch setze, falls beim Login was schief läuft
     const {isLoggedIn, setIsLoggedIn} = useContext(mainContext) as ILoggedInProps
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,14 +37,14 @@ const Login = () => {
                 email: email,
                 password: password
             })
-            //falls beim Login etas schief geht
+            //falls beim Login etwas schief geht
             //navigate sorgt dafü, dass man auf login page bleibt
             //Message wird angezeigt
             //setIsLoggedIn um dementsprechend Logout oder Sign In zu zeigen
             if (error) {
                 console.log(error);
                 navigate("/login")
-                setIsLoggedIn(false)
+                //setIsLoggedIn(false)
                 setMessage("Du hast ein falsches Passwort oder einen falschen Benutzernamen eingegeben")
             } else {
                 setIsLoggedIn(true)

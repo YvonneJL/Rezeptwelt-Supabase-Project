@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../utils/supabase";
 import { IIngredient, IRecipe } from "../interfaces";
+import { IFavRecipeProps } from "../components/FavRecipes";
+import { mainContext } from "../context/Mainprovider";
 
 const RecipeDetail = () => {
   //Params gleicher Name (recipeIdParam), den ich in der App.tsx im Pfad dafür gewählt habe
@@ -13,6 +15,11 @@ const RecipeDetail = () => {
   // States für die Daten aus den beiden fetches (recipes und ingredients)
   const [recipeData, setRecipeData] = useState<IRecipe[] | null>();
   const [ingredientsData, setIngredientsData] = useState<IIngredient[] | null>();
+
+  //isLoggedin ziehen, um button "Rezept entfernen" zu toggeln, ja nach Login Status
+  const {isLoggedIn}  = useContext(mainContext) as IFavRecipeProps;
+
+
 
   //fetch für das Rezept, mit der id=recipeIdParam
   const fetchRecipeData = async () => {
@@ -85,12 +92,12 @@ const RecipeDetail = () => {
             >
               Rezept ändern
             </button>
-            <button
+        {  isLoggedIn &&  <button
               className="w-40 bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer items-center"
               onClick={deleteRecipe}
             >
               Rezept entfernen
-            </button>
+            </button>}
           </section>
         </section>
       )}

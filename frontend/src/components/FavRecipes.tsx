@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import supabase from "../utils/supabase";
 import { IRecipe } from "../interfaces";
 import { Link, useLocation} from "react-router-dom";
+import { mainContext } from "../context/Mainprovider";
+
+export interface IFavRecipeProps {
+  isLoggedIn: boolean
+}
 
 const FavRecipes = () => {
 
     //hier werden die Daten für die erste Übersicht der Rezepte gespeichert aus dem recipe fetch
     const [recipesData, setRecipesData] = useState<IRecipe[] | null>([])
+
+    //hier hole ich mir isLoggedIn, um den Button "Rezept entfernen" nur anzeigen zu lassen, wenn user isLoggedIn true
+    const {isLoggedIn}  = useContext(mainContext) as IFavRecipeProps;
 
     //fetch aller recipe Spalten mit dem entsprechenden Befehl
     const fetchData = async () => {
@@ -72,7 +80,7 @@ const FavRecipes = () => {
               <p className="text-sm w-1/2">{recipe.description}</p>
               <Link className="bg-violet-600 p-3 self-baseline rounded-xl transform hover:scale-110 transition-all duration-300" to={`/${recipe.id}`}>Zum Rezept</Link>
               </div>
-              <button className="self-end bg-violet-200 border-2 border-violet-400 rounded-lg p-2 text-sm cursor-pointer transform hover:scale-110 transition-all duration-300" onClick={()=>deleteRecipe(recipe.id.toString())}>Rezept entfernen</button>
+              {isLoggedIn && <button className="self-end bg-violet-200 border-2 border-violet-400 rounded-lg p-2 text-sm cursor-pointer transform hover:scale-110 transition-all duration-300" onClick={()=>deleteRecipe(recipe.id.toString())}>Rezept entfernen</button>}
             </div>
           </article>  ))
       )}
