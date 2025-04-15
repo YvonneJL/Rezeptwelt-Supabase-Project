@@ -50,10 +50,10 @@ const FavRecipes = () => {
 
 
     return ( 
-    <>
+    <section>
     {/* abhängig von favStyling */}
     <h1 className="text-center font-semibold text-5xl mb-10">{favStyling ?"Unsere Favouriten" : "Alle Rezepte"}</h1>
-   <section className={favStyling ? "flex lg:flex-row flex-col justify-between lg:px-20 px-10 gap-5" : "flex flex-wrap gap-10"}>
+   <section className={favStyling ? "flex flex-wrap lg:justify-between lg:px-20 px-10 gap-10" : "flex flex-wrap gap-10"}>
       {/* hier wird der Ternary Operator benutzt --> auf Homeseite wird gemapped aber zuerst gesliced, sodass nur die ersten 3 angezeigt werden */}
       {/* styling unterscheidet sich auch */}
    {favStyling ? (recipesData?.slice(3, 6).map((recipe, index) => (
@@ -85,7 +85,7 @@ const FavRecipes = () => {
           </article>  ))
       )}
    </section>
-    </> 
+    </section> 
     );
   }
 

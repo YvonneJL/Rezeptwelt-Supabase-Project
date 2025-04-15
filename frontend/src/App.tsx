@@ -9,6 +9,7 @@ import EditRecipe from "./pages/EditRecipe"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import ProtectedRoute from "./components/ProtectedRoute"
+import Profile from "./pages/Profile"
 
 
 function App() {
@@ -31,6 +32,11 @@ function App() {
   }/>
 <Route path="/signup" element={<SignUp/>}/>
 <Route path="/login" element={<Login/>}/>
+<Route path="/profile" element={
+  <ProtectedRoute>
+    <Profile/>
+  </ProtectedRoute>
+  }/>
     </Route>
   ))
 

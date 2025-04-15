@@ -60,16 +60,16 @@ const Login = () => {
         <form  onSubmit={handleLogin} className="flex flex-col items-center gap-5 p-10">
         <h1 className="text-5xl pb-10 self-start">Login:</h1>
         <div className="flex flex-row gap-5 items-center">
-        <label className="w-60"  htmlFor="emailLogin">Email:</label>
-        <input className="bg-violet-100 p-2 w-100 rounded-lg" type="email" id="emailLogin" ref={emailRef}/>
+        <label className="lg:w-60 w-20"  htmlFor="emailLogin">Email:</label>
+        <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" type="email" id="emailLogin" ref={emailRef}/>
         </div>
         <div className="flex flex-row gap-5 items-center">
-        <label className="w-60"  htmlFor="passwortLogin">Passwort:</label>
-        <input className="bg-violet-100 p-2 w-100 rounded-lg" id="passwortLogin" type="password" ref={passwordRef}/>
+        <label className="lg:w-60 w-20"  htmlFor="passwortLogin">Passwort:</label>
+        <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" id="passwortLogin" type="password" ref={passwordRef}/>
         </div>
         <div className="flex gap-5">
-            <p className="w-60"></p>
-            <div className="w-100 flex justify-between">
+            <p className="lg:w-60 w-20"></p>
+            <div className="lg:w-100 w-50 flex justify-between">
             <Link className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer" to={"/signup"}>Not yet signed up?</Link>
             <button className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer">Log In</button>
             </div>
