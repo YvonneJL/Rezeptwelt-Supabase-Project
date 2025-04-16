@@ -50,6 +50,28 @@ function App() {
     checkLoginStatus()
 }, [setUser, setIsLoggedIn])
 
+
+// useEffect(() => {
+//   const { data: subscription } = supabase.auth.onAuthStateChange(
+//     async (event, session) => {
+//       console.log("Auth event:", event);
+//       if (session?.user) {
+//         setUser(session.user as unknown as IUser);
+//         setIsLoggedIn(true);
+//       } else {
+//         //setUser(null);
+//         setIsLoggedIn(false);
+//       }
+//       setLoading(false);
+//     }
+//   );
+
+//   return () => {
+//     subscription?.subscription.unsubscribe();
+//   };
+// }, []);
+
+
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<Layout/>}>
 <Route index element={<Home/>}/>

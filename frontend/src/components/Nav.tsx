@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { ReactEventHandler, useContext, useEffect } from "react";
 import { mainContext } from "../context/Mainprovider";
 import supabase from "../utils/supabase";
 import { ILoggedInProps } from "../pages/Login";
@@ -19,17 +19,32 @@ const Nav = () => {
     console.log(isLoggedIn);
 
     // einfacher Befehl von supabase mit .signOut()
-     const logout = async () => {
-        //hier auf false, um unten die Buttons zu toggeln je nachdem ob man eingeloggt ist oder nicht erscheint Sign Up oder Log Out
-        setIsLoggedIn(false)
+    //  const logout = async () => {
+    //     //hier auf false, um unten die Buttons zu toggeln je nachdem ob man eingeloggt ist oder nicht erscheint Sign Up oder Log Out
+    //     setIsLoggedIn(false)
+    //     const {error} = await supabase
+    //     .auth
+    //     .signOut()
+    //     navigate("/")
+    //     if (error) {
+    //         console.log("User ist nicht ausgeloggt", error);
+    //     }
+    // }
+
+    //! Ausprobieren --> Unterschied: navigate und setIsLoggedIn stehen im else. So funktioniert es. Auskommentierte Version von oben nicht
+     // einfacher Befehl von supabase mit .signOut()
+    const logout = async () => {
         const {error} = await supabase
         .auth
         .signOut()
         if (error) {
-            console.log("User ist nicht ausgeloggt");
+            console.log("User ist nicht ausgeloggt", error);
+        } else {
+            navigate("/")
+            setIsLoggedIn(false)
         }
-        navigate("/")
     }
+
 
     return ( 
         <nav className="flex lg:px-20 lg:py-7 p-2 justify-between">

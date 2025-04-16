@@ -20,7 +20,7 @@ const SignUp = () => {
     //aus dem Mainprovider, um überall auf user zugreifen zu können
     //interface in interfaces.ts
     const {user, setUser} = useContext(mainContext) as IUserProps
-    const {setIsLoggedIn} = useContext(mainContext) as ILoggedInProps
+    const {setIsLoggedIn, isLoggedIn} = useContext(mainContext) as ILoggedInProps
 
     //useRef um auf die Input Inhalte zugreifen zu können
     const usernameRef = useRef<HTMLInputElement>(null)
@@ -33,7 +33,7 @@ const SignUp = () => {
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         //um entsprechend Log Out zu sehen statt Sign Up
-        setIsLoggedIn(true)
+        //setIsLoggedIn(true)
 
         //zunächst hole ich mir die Inhalte aus den Inputfeldern
         const username = usernameRef.current?.value || ""
@@ -75,15 +75,22 @@ const SignUp = () => {
                     }
                 }
             })
+            console.log("DATA", data);
             if (error) {
                 console.log("Einloggen hat nicht geklappt", error);
 
             } else {
                 console.log(data);
+                setIsLoggedIn(true)
+                console.log("Signup erfolgreich:", data);
+console.log("isLoggedIn vor navigate:", isLoggedIn);
+                navigate("/recipes")
+                console.log("isLoggedIn nach navigate:", isLoggedIn);
+                console.log("Navigated zu /recipes");
             }
-            //wenn man eingeloggt ist, kommt man auf die Seite Recipes
-            //! hier viell zu Profile ändern?!
-            navigate("/recipes")
+            // //wenn man eingeloggt ist, kommt man auf die Seite Recipes
+            // //! hier viell zu Profile ändern?!
+            // navigate("/recipes")
         } catch (e) {
             console.log(e);
         }

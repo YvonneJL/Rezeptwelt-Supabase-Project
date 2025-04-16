@@ -9,6 +9,8 @@ const [user, setUser] = useState<IUser | null>(null)
 const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 const [loading, setLoading] = useState<boolean>(true)
 
+console.log(user);
+
     return ( 
         <mainContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn, loading, setLoading}}>
             {children}
