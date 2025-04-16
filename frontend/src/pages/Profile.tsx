@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { mainContext } from "../context/Mainprovider";
 import { IUserProps } from "./SignUp";
 import supabase from "../utils/supabase";
-import { Link } from "react-router-dom";
+
 
 const Profile = () => {
 
@@ -36,18 +36,11 @@ const Profile = () => {
 
     console.log(user);
 
-    // Durch Doppelklick auf den usernamen, lässt sich dieser ändern
-    function handleDoubleClickUserName(){
-        if(user){
-            setNewUsername(user.username)
-            setIsEditing(true)
-        }
-    }
-
-    //selbe Funktion für das Ändern der Email
+    //Funktion, um sowohl Email, also auch userName zu ändern
     function handleChangeData(){
         if(user){
             setNewEMail(user.email)
+            setNewUsername(user.username)
             setIsEditing(true)
         }
     }
@@ -84,7 +77,7 @@ const Profile = () => {
             {/* isEditing wird tru durch handleChangeData, die ausgelöst wird beim Click auf "Daten ändern" */}
         {user && (
             <div className="flex flex-col gap-5">
-                <div className="flex gap-5 items-center cursor-pointer" onDoubleClick={handleDoubleClickUserName}>
+                <div className="flex gap-5 items-center cursor-pointer">
                     <label className="w-60" htmlFor="username-profile">Username:</label>
                     {
                        isEditing ? (

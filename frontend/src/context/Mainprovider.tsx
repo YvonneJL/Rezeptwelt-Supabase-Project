@@ -7,9 +7,10 @@ const MainProvider = ({children}: {children: React.ReactNode}) => {
 
 const [user, setUser] = useState<IUser | null>(null)
 const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+const [loading, setLoading] = useState<boolean>(true)
 
     return ( 
-        <mainContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn}}>
+        <mainContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn, loading, setLoading}}>
             {children}
         </mainContext.Provider>
      );

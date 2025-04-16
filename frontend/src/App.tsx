@@ -10,9 +10,45 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Profile from "./pages/Profile"
+import { useContext, useEffect } from "react"
+import supabase from "./utils/supabase"
+import { IUser } from "./interfaces"
+import { mainContext } from "./context/Mainprovider"
+
+//brauche ich auch in der ProtectedRoute
+export interface IMainProps {
+  user: IUser | null,
+  setUser: (user: IUser) => void;
+  isLoggedIn: boolean,
+  setIsLoggedIn: (value: boolean) => void
+  loading: boolean,
+  setLoading: (value: boolean) => void
+}
 
 
 function App() {
+
+  //für useEffect nötigen States aus Mainprovider
+  const {isLoggedIn, setIsLoggedIn, setUser, setLoading} = useContext(mainContext) as IMainProps
+
+  //kommt aus ProtectedRoute
+  //Authentifizierung User
+  //muss hier rein, sonst geht isLoggedIn auf false, wenn ich die Seite refreshe
+  useEffect(()=> {
+    const checkLoginStatus = async () => {
+        const {data: user} = await supabase
+        .auth
+        .getUser()
+
+        console.log(user);
+        if (user.user !== null) {
+            setUser(user.user as unknown as IUser)
+            setIsLoggedIn(true)
+        }
+        setLoading(false)
+    }
+    checkLoginStatus()
+}, [setUser, setIsLoggedIn])
 
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<Layout/>}>
