@@ -99,9 +99,9 @@ function App() {
   ))
 
   return (
-    <>
+    <main className="bg-violet-100">
     <RouterProvider router={router}/>
-    </>
+    </main>
   )
 }
 

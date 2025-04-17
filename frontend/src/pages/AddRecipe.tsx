@@ -1,11 +1,16 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import supabase from "../utils/supabase";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { mainContext } from "../context/Mainprovider";
+import { IUserProps } from "./SignUp";
 
 const AddRecipe = () => {
   // damit ich dann direkt per ButtonKlick auf die RezeptDetail Seite navigieren kann
   const navigate = useNavigate();
+
+  //user, um "added_by" hinzuzufügen
+const {user} = useContext(mainContext) as IUserProps
 
   // mit useRef, ref={} im Inputfeld und der hier geählten const.current?.value kann ich auf das value in den Input oä Feldern zugreifen
   const recipeCategory = useRef<HTMLSelectElement>(null);
@@ -37,7 +42,29 @@ const AddRecipe = () => {
     }
   };
 
+//Foto Upload Schritt 1
+const uploadRecipeImg = async () => {
+  //wenn kein Foto hochgeladen wird, gehe aus der Funktion
+  if (!recipeImg) return null;
 
+  const fileName = recipeImg.name;
+
+  //upload erfolgt dann direkt im Root des Buckets "img-for-recipes"
+  const { error } = await supabase.storage
+    .from("img-for-recipes")
+    .upload(fileName, recipeImg);
+
+  if (error) {
+    console.log("Fehler beim Hochladen des Fotos", error);
+    return null;
+  }
+
+  const fotoUrl = supabase.storage
+    .from("img-for-recipes")
+    .getPublicUrl(fileName).data.publicUrl;
+
+  return fotoUrl;
+};
 
   //Funktion, um dann beim Submit der Form die Inhalte darin auszuführen
   const addRecipeToBackend = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,6 +74,19 @@ const AddRecipe = () => {
     //uuid hier schon generiert, damit ich später mit navigate darauf zugreifen kann
     const newUuid = uuidv4();
 
+
+    //hier gehts weiter mit Schritt 2 vom FotoUpload
+    //hier wird Funktion ausgeführt und der returned Wert gespeichert
+    //allerdings nur, wenn
+    let uploadedImgUrl = null;
+    if (recipeImg) {
+      uploadedImgUrl = await uploadRecipeImg();
+      if (!uploadedImgUrl) {
+        console.log("Fehler beim Hochladen oder kein Bild");
+      }
+    }
+    console.log(uploadedImgUrl);
+
     //hier werden über supabase Methode insert die Inhalte der Input Felder als neue Werte für die jeweilgen Spalten von recipe_two gesetzt
     // uuid wird da dann nur noch als Konstante benutzt
     // statt const response destructern wir schon und schreiben die key aus dem respone Objekt, die wir brauchen in {}
@@ -55,10 +95,12 @@ const AddRecipe = () => {
       id: newUuid,
       name: recipeName.current?.value || "",
       description: recipeDesc.current?.value || "",
-      servings: recipeServings.current?.value || "",
+      servings: recipeServings.current?.value || 0,
       instructions: recipeInstructions.current?.value || "",
       category_id: recipeCategory.current?.value || "",
       url: recipeUrl.current?.value || "",
+      upload_url: uploadedImgUrl,
+      added_by: user.username
     });
 
     //Errorhandling
@@ -111,6 +153,12 @@ const AddRecipe = () => {
 
   //useState als Array von Zutatenobjekt
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
+  //useState für den FotoUpload
+  const [recipeImg, setRecipeImg] = useState<File | null>(null);
+
+
+
+
 
   //index als Parameter weil es mehrere Inputfelder gibt, um so eine einmalige id für label und input zu erhalten
   //field als Parameter, weil untersch. Inputfelder
@@ -168,7 +216,7 @@ const AddRecipe = () => {
             Wähle eine Kategorie:
           </label>
           <select
-            className="w-100 bg-violet-100 p-2 rounded-lg"
+            className="w-100 bg-violet-200 p-2 rounded-lg"
             name="category"
             id="category"
             ref={recipeCategory}
@@ -190,7 +238,7 @@ const AddRecipe = () => {
             Name des Rezepts:
           </label>
           <input
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="name_rezept"
             type="text"
             placeholder="z.B. Kaiserschmarrn"
@@ -202,7 +250,7 @@ const AddRecipe = () => {
             Beschreibung des Rezepts:
           </label>
           <textarea
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="desc_rezept"
             placeholder="z.B. Ein leckeres Dessert aus Tirol"
             ref={recipeDesc}
@@ -213,7 +261,7 @@ const AddRecipe = () => {
             Anzahl der Portionen:
           </label>
           <input
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="servings_rezept"
             type="number"
             ref={recipeServings}
@@ -228,7 +276,7 @@ const AddRecipe = () => {
                 <div className="flex flex-col">
                   <label htmlFor={`menge-${index}`}>Menge:</label>
                   <input
-                    className="bg-violet-100 p-2 w-30 rounded-lg"
+                    className="bg-violet-200 p-2 w-30 rounded-lg"
                     type="text"
                     id={`menge-${index}`}
                     value={ingredient.quantity}
@@ -241,7 +289,7 @@ const AddRecipe = () => {
                 <div className="flex flex-col">
                   <label htmlFor={`einheit-${index}`}>Einheit:</label>
                   <input
-                    className="bg-violet-100 p-2 w-30 rounded-lg"
+                    className="bg-violet-200 p-2 w-30 rounded-lg"
                     type="text"
                     id={`einheit-${index}`}
                     value={ingredient.unit}
@@ -253,7 +301,7 @@ const AddRecipe = () => {
                 <div className="flex flex-col">
                   <label htmlFor={`zutat-${index}`}>Zutat:</label>
                   <input
-                    className="bg-violet-100 p-2 w-30 rounded-lg"
+                    className="bg-violet-200 p-2 w-30 rounded-lg"
                     type="text"
                     id={`zutat-${index}`}
                     value={ingredient.name}
@@ -283,7 +331,7 @@ const AddRecipe = () => {
             Anleitung des Rezepts:
           </label>
           <textarea
-            className="bg-violet-100 p-2 w-100 rounded-lg h-50"
+            className="bg-violet-200 p-2 w-100 rounded-lg h-50"
             id="instructions_rezept"
             placeholder="z.B. 1. Mehl und Milch mischen..."
             ref={recipeInstructions}
@@ -294,12 +342,28 @@ const AddRecipe = () => {
             Url zum Bild:
           </label>
           <input
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="url_rezept"
             type="text"
             ref={recipeUrl}
           />
         </div>
+        <div className="flex gap-5">
+          <label htmlFor="img-upload" className="w-60">
+                  Eigenes Bild hochladen:
+                </label>
+                <input
+                  className="bg-violet-200 p-2 w-100 rounded-lg"
+                  type="file"
+                  accept="image/*"
+                  id="img-upload"
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      setRecipeImg(e.target.files[0]);
+                    }
+                  }}
+                />
+          </div>
       </form>
     </>
   );

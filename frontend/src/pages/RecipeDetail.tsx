@@ -4,6 +4,7 @@ import supabase from "../utils/supabase";
 import { IIngredient, IRecipe } from "../interfaces";
 import { IFavRecipeProps } from "../components/FavRecipes";
 import { mainContext } from "../context/Mainprovider";
+import { IUserProps } from "./SignUp";
 
 const RecipeDetail = () => {
   //Params gleicher Name (recipeIdParam), den ich in der App.tsx im Pfad dafür gewählt habe
@@ -18,8 +19,8 @@ const RecipeDetail = () => {
 
   //isLoggedin ziehen, um button "Rezept entfernen" zu toggeln, ja nach Login Status
   const {isLoggedIn}  = useContext(mainContext) as IFavRecipeProps;
-
-
+  //user, um Rezept löschen Button nur anzeigen zu lassen, wenn user Rezept ursprünglich hinzugefügt hat
+  const {user} = useContext(mainContext) as IUserProps
 
   //fetch für das Rezept, mit der id=recipeIdParam
   const fetchRecipeData = async () => {
@@ -67,7 +68,7 @@ const RecipeDetail = () => {
           <div
             className="relative lg:h-91 h-25 bg-no-repeat bg-cover bg-center w-screen flex justify-center items-center"
             //! Ich muss mit [0] arbeiten, da Daten zwar nur ein Objekt sind aber in einem Array verschachtelt
-            style={{ backgroundImage: `url(${recipeData[0]?.url})` }}
+            style={{ backgroundImage: `url(${recipeData[0]?.upload_url ? recipeData[0].upload_url : recipeData[0].url})` }}
           >
             <div className="absolute inset-0 bg-black opacity-20 h-24 md:h-91"></div>
           </div>
@@ -86,13 +87,13 @@ const RecipeDetail = () => {
             )}
             <h2 className="text-2xl">Schritte:</h2>
             <p className="font-semibold break-before-number">{`${recipeData[0]?.instructions} for ${recipeData[0]?.servings} servings`}</p>
-            { isLoggedIn && <button
+            { user.username === recipeData[0].added_by && <button
               className="w-40 bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer items-center"
               onClick={() => navigate(`/editrecipe/${recipeData[0]?.id}`)}
             >
               Rezept ändern
             </button>}
-        {  isLoggedIn &&  <button
+        {  user.username === recipeData[0].added_by &&  <button
               className="w-40 bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer items-center"
               onClick={deleteRecipe}
             >

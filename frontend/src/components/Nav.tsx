@@ -3,6 +3,8 @@ import { ReactEventHandler, useContext, useEffect } from "react";
 import { mainContext } from "../context/Mainprovider";
 import supabase from "../utils/supabase";
 import { ILoggedInProps } from "../pages/Login";
+import { IUserProps } from "../pages/SignUp";
+
 
 
 const Nav = () => {
@@ -16,6 +18,7 @@ const Nav = () => {
 
     //aus dem Mainprovider, um es hier und in SignUp.tsx und Login.tsx zu verwenden (Props sind importiert)
     const {isLoggedIn, setIsLoggedIn} = useContext(mainContext) as ILoggedInProps
+    const {user} = useContext(mainContext) as IUserProps
     console.log(isLoggedIn);
 
     // einfacher Befehl von supabase mit .signOut()
@@ -47,7 +50,7 @@ const Nav = () => {
 
 
     return ( 
-        <nav className="flex lg:px-20 lg:py-7 p-2 justify-between">
+        <nav className="flex lg:px-20 lg:py-7 p-2 justify-between items-center">
             <article className="flex gap-2 lg:pl-70">
                 <img className="h-5" src="/images/Ico.svg" alt="coffee cup" />
                 <p className="text-sm">Rezeptwelt</p>
@@ -60,7 +63,9 @@ const Nav = () => {
             </article>
             {/* hier wird getoggelt je nachdem ob man eingeloggt ist oder nicht */}
             {!hideSignUp && !isLoggedIn && <Link to={"/signup"} className="font-bold text-sm transform hover:scale-120 transition-all duration-300">Sign up</Link>}
-            {isLoggedIn && <Link to="/profile"><img src="../../public/images/Vector.svg" alt="Profile Icon" /></Link>}
+            {isLoggedIn && <Link to="/profile">
+            {user.img_url ? <img className="transform hover:scale-120 transition-all duration-300 w-10 h-10 rounded-full object-cover object-center" src={user.img_url} alt="Profile Picture"/> : <div className="flex justify-center items-center w-10 h-10 rounded-full object-cover object-center bg-violet-300">🧑‍🍳</div>}
+            </Link>}
             {isLoggedIn && <button onClick={logout} className="font-bold text-sm transform hover:scale-120 transition-all duration-300">Log Out</button>}
         </nav>
      );

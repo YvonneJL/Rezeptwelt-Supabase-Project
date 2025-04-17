@@ -12,8 +12,7 @@ const Profile = () => {
 
   //damit user Foto hochladen kann
   const [profileImg, setProfileImg] = useState<File | null>(null);
-  //Datei hochladen nur sichtbar nach Button Klick
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+
 
   //fetch hier, um an die Daten von genau dem Customer zu kommen, der gerade eingeloggt ist
   //nötig, da ich später die Daten update in handleSave --> dafür ist der fetch nötig!
@@ -49,7 +48,7 @@ const Profile = () => {
 
     const fileName = profileImg.name;
 
-    //upload erfolgt dann direkt im Root des Buckets "profiles-img"
+    //upload erfolgt dann direkt im Root des Buckets "img-for-customers"
     const { error } = await supabase.storage
       .from("img-for-customer")
       .upload(fileName, profileImg);
@@ -74,16 +73,15 @@ const Profile = () => {
       setNewEMail(user.email);
       setNewUsername(user.username);
       setIsEditing(true);
-      setIsClicked(true);
     }
   }
 
   async function handleSave() {
-    let uploadedImgUrl = null;
-
+    setIsEditing(false);
     //hier gehts weiter mit Schritt 2 vom FotoUpload
     //hier wird Funktion ausgeführt und der returned Wert gespeichert
     //allerdings nur, wenn
+    let uploadedImgUrl = null;
     if (profileImg) {
       uploadedImgUrl = await uploadImg();
       if (!uploadedImgUrl) {
@@ -114,10 +112,52 @@ const Profile = () => {
         fetchUserData();
       }
     }
-    setIsEditing(false);
   }
 
-  //console.log(user.img_url);
+  //Funktion, um Profilbild im Storage und in der Tabelle zu löschen
+  const handleDelete = async () => {
+    //hier speichere ich den den Pfad zur Datei
+    const filePath = user?.img_url?.split("/img-for-customer/")[1];
+    //wenn es keinen gibt, also kein Bild, dann wird die Funktion beendet
+    if (!filePath) {
+      return;
+    }
+
+    //hier lösche ich das Bild zuerst aus dem Storage mit HIlfe von filePath
+    const {error: storageError} = await supabase
+    .storage
+    .from("img-for-customer")
+    .remove([filePath])
+
+    //error Handling
+    if (storageError) {
+      console.log("Bucket Löschen hat nicht geklappt", storageError);
+    } else {
+      console.log("Storage löschen successful");
+    }
+
+    //hier lösche ich bzw update ich die img_url aus der customer Tabelle beim entspr. customer
+    const {data, error} =  await supabase
+    .from("customers")
+    .update({
+      img_url: null
+    })
+    .eq("id", user.id)
+    .select()
+
+    //Errorhandling
+    //bei Success wird auch user für UI geupdated, damit die Änderungen direkt sichtbar sind
+    if (error) {
+      console.log("Das Löschen hat nicht geklappt", error);
+    } else {
+      console.log("Löschen hat geklappt");
+      setUser({
+        ...user,
+        img_url: null
+      });
+    }
+  }
+
 
   return (
     <>
@@ -125,7 +165,7 @@ const Profile = () => {
         {/* Bild wird nur angezeigt, wenn es eine url gibt ansonsten ein lila Kreis in derselben Größe */}
         {user?.img_url ? (
           <img src={user.img_url} alt="Profilbild" className="w-40 h-40 rounded-full object-cover object-center" />
-        ): <div className="w-40 h-40 rounded-full object-cover object-center bg-violet-300"></div>}
+        ): <div className="flex justify-center items-center w-40 h-40 rounded-full object-cover object-center bg-violet-300 text-6xl">🧑‍🍳</div>}
         <h1 className="p-10 text-3xl">
           {user
             ? `Willkommen ${newUsername || user.username}`
@@ -143,7 +183,7 @@ const Profile = () => {
               </label>
               {isEditing ? (
                 <input
-                  className="bg-violet-100 p-2 w-100 rounded-lg"
+                  className="bg-violet-200 p-2 w-100 rounded-lg"
                   type="text"
                   placeholder="change your username"
                   value={newUsername}
@@ -161,7 +201,7 @@ const Profile = () => {
               </label>
               {isEditing ? (
                 <input
-                  className="bg-violet-100 p-2 w-100 rounded-lg"
+                  className="bg-violet-200 p-2 w-100 rounded-lg"
                   type="email"
                   placeholder="change your email"
                   value={newEmail}
@@ -180,14 +220,15 @@ const Profile = () => {
               <p className="w-60">Lastname: </p>
               <p>{user.lastname} </p>
             </div>
-            {/* Möglichkeit FotoUpload wird nur angezeigt, wenn Button geklickt wurde */}
-            {isClicked && (
-              <div className="flex gap-5">
+            {/* Möglichkeit FotoUpload wird nur angezeigt, wenn isEditing true also beim Click des Buttons wurde */}
+            {isEditing && (
+              <div className="flex flex-col gap-5">
+                <div className="flex gap-5">
                 <label htmlFor="img-upload" className="w-60">
                   Profilbild:
                 </label>
                 <input
-                  className="bg-violet-100 p-2 w-100 rounded-lg"
+                  className="bg-violet-200 p-2 w-100 rounded-lg"
                   type="file"
                   accept="image/*"
                   id="img-upload"
@@ -197,6 +238,11 @@ const Profile = () => {
                     }
                   }}
                 />
+                </div>
+                <div className="flex gap-5">
+                  <p className="w-60"></p>
+                  <p className=" bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer active:scale-95 transition-transform duration-150 ease-in-out" onClick={handleDelete}>Profilbild löschen</p>
+                </div>
               </div>
             )}
             {/* button wechselt onClick Funktion je nachdem ob gerade editiert wird oder nicht */}

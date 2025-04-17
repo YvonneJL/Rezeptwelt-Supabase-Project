@@ -19,6 +19,8 @@ export interface IRecipe {
     category_id: number,
     categories: ICategory
     url: string
+    upload_url: string | null
+    added_by: string | null
 }
 
 export interface ICategory {
@@ -35,5 +37,5 @@ export interface IUser {
     lastname: string,
     email: string,
     password: string
-    img_url: string
+    img_url: string | null
 }

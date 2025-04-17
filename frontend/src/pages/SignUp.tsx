@@ -81,10 +81,10 @@ const SignUp = () => {
 
             } else {
                 console.log(data);
-                setIsLoggedIn(true)
+                await setIsLoggedIn(true)
                 console.log("Signup erfolgreich:", data);
-console.log("isLoggedIn vor navigate:", isLoggedIn);
-                navigate("/recipes")
+                console.log("isLoggedIn vor navigate:", isLoggedIn);
+                navigate("/profile")
                 console.log("isLoggedIn nach navigate:", isLoggedIn);
                 console.log("Navigated zu /recipes");
             }
@@ -101,23 +101,23 @@ console.log("isLoggedIn vor navigate:", isLoggedIn);
             <h1 className="text-5xl pb-10 self-start">Sign up für Rezeptwelt:</h1>
             <div className="flex flex-row gap-5 items-center">
             <label className="lg:w-60 w-20"  htmlFor="username">Username:</label>
-            <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" type="text" id="username" placeholder="z.B. Mia123" ref={usernameRef}/>
+            <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" type="text" id="username" placeholder="z.B. Mia123" ref={usernameRef}/>
             </div>
             <div className="flex flex-row gap-5 items-center">
             <label className="lg:w-60 w-20"  htmlFor="vorname">Vorname:</label>
-            <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" type="text" id="vorname" placeholder="z.B. Mia" ref={vornameRef}/>
+            <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" type="text" id="vorname" placeholder="z.B. Mia" ref={vornameRef}/>
             </div>
             <div className="flex flex-row gap-5 items-center">
             <label className="lg:w-60 w-20"  htmlFor="nachname">Nachname:</label>
-            <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" id="nachname" type="text" placeholder="z.B. Mustermensch" ref={nachnameRef}/>
+            <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" id="nachname" type="text" placeholder="z.B. Mustermensch" ref={nachnameRef}/>
             </div>
             <div className="flex flex-row gap-5 items-center">
             <label className="lg:w-60 w-20"  htmlFor="emailadresse">Emailadresse:</label>
-            <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" id="emailadresse" type="email" placeholder="z.B. Mia@mammamia.de" ref={emailRef}/>
+            <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" id="emailadresse" type="email" placeholder="z.B. Mia@mammamia.de" ref={emailRef}/>
             </div>
             <div className="flex flex-row gap-5 items-center">
             <label className="lg:w-60 w-20"  htmlFor="passwort">Passwort:</label>
-            <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" id="passwort" type="password" placeholder="Wähle ein Passwort mit mind. 6 Zeichen" ref={passwordRef} />
+            <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" id="passwort" type="password" placeholder="Wähle ein Passwort mit mind. 6 Zeichen" ref={passwordRef} />
             </div>
             <div className="flex gap-5">
                 <p className="lg:w-60 w-20"></p>

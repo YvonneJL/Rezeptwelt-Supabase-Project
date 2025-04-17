@@ -61,11 +61,11 @@ const Login = () => {
         <h1 className="text-5xl pb-10 self-start">Login:</h1>
         <div className="flex flex-row gap-5 items-center">
         <label className="lg:w-60 w-20"  htmlFor="emailLogin">Email:</label>
-        <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" type="email" id="emailLogin" ref={emailRef}/>
+        <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" type="email" id="emailLogin" ref={emailRef}/>
         </div>
         <div className="flex flex-row gap-5 items-center">
         <label className="lg:w-60 w-20"  htmlFor="passwortLogin">Passwort:</label>
-        <input className="bg-violet-100 p-2 lg:w-100 w-50 rounded-lg" id="passwortLogin" type="password" ref={passwordRef}/>
+        <input className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg" id="passwortLogin" type="password" ref={passwordRef}/>
         </div>
         <div className="flex gap-5">
             <p className="lg:w-60 w-20"></p>

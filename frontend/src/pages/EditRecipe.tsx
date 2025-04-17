@@ -129,7 +129,7 @@ const EditRecipe = () => {
           </label>
           {/* select kann nicht verändert werden, daher hier ohne onChange Funktion */}
           <select
-            className="w-100 bg-violet-100 p-2 rounded-lg"
+            className="w-100 bg-violet-200 p-2 rounded-lg"
             name="category"
             id="category"
             value={recipeData?.category_id}
@@ -153,7 +153,7 @@ const EditRecipe = () => {
           </label>
           <input
             onChange={handleChangeName}
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="name_rezept"
             type="text"
             placeholder="z.B. Kaiserschmarrn"
@@ -167,7 +167,7 @@ const EditRecipe = () => {
           </label>
           <textarea
             onChange={handleChangeTextAreaDesc}
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="desc_rezept"
             placeholder="z.B. Ein leckeres Dessert aus Tirol"
             value={newRecipeDesc}
@@ -180,7 +180,7 @@ const EditRecipe = () => {
           </label>
           <input
             onChange={handleChangeServings}
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="servings_rezept"
             type="number"
             value={newRecipeServings}
@@ -193,7 +193,7 @@ const EditRecipe = () => {
           </label>
           <textarea
             onChange={handleChangeTextAreaInst}
-            className="bg-violet-100 p-2 w-100 rounded-lg h-50"
+            className="bg-violet-200 p-2 w-100 rounded-lg h-50"
             id="instructions_rezept"
             placeholder="z.B. 1. Mehl und Milch mischen..."
             value={newRecipeInst}
@@ -206,7 +206,7 @@ const EditRecipe = () => {
           </label>
           <input
             onChange={handleChangeUrl}
-            className="bg-violet-100 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 w-100 rounded-lg"
             id="url_rezept"
             type="text"
             value={newRecipeUrl}
