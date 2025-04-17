@@ -116,20 +116,20 @@ const EditRecipe = () => {
         className="flex flex-col items-center gap-5 p-10"
       >
         <div className="flex justify-evenly w-full">
-          <h1 className="font-bold text-3xl">
+          <h1 className="font-bold lg:text-3xl text-lg">
             Tippe deine gewünschten Änderungen ein
           </h1>
-          <button className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer">
+          <button className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg lg:p-3 p-1 cursor-pointer">
             Rezept ändern
           </button>
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="category">
+          <label className="lg:w-60 w-20" htmlFor="category">
             Wähle eine Kategorie:
           </label>
           {/* select kann nicht verändert werden, daher hier ohne onChange Funktion */}
           <select
-            className="w-100 bg-violet-200 p-2 rounded-lg"
+            className="lg:w-100 w-50 bg-violet-200 p-2 rounded-lg"
             name="category"
             id="category"
             value={recipeData?.category_id}
@@ -148,12 +148,12 @@ const EditRecipe = () => {
           </select>
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="name_rezept">
+          <label className="lg:w-60 w-20" htmlFor="name_rezept">
             Name des Rezepts:{" "}
           </label>
           <input
             onChange={handleChangeName}
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="name_rezept"
             type="text"
             placeholder="z.B. Kaiserschmarrn"
@@ -162,12 +162,12 @@ const EditRecipe = () => {
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="desc_rezept">
+          <label className="lg:w-60 w-20" htmlFor="desc_rezept">
             Beschreibung des Rezepts:{" "}
           </label>
           <textarea
             onChange={handleChangeTextAreaDesc}
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="desc_rezept"
             placeholder="z.B. Ein leckeres Dessert aus Tirol"
             value={newRecipeDesc}
@@ -175,12 +175,12 @@ const EditRecipe = () => {
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="servings_rezept">
+          <label className="lg:w-60 w-20" htmlFor="servings_rezept">
             Anzahl der Portionen:{" "}
           </label>
           <input
             onChange={handleChangeServings}
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="servings_rezept"
             type="number"
             value={newRecipeServings}
@@ -188,12 +188,12 @@ const EditRecipe = () => {
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="instructions_rezept">
+          <label className="lg:w-60 w-20" htmlFor="instructions_rezept">
             Anleitung des Rezepts:{" "}
           </label>
           <textarea
             onChange={handleChangeTextAreaInst}
-            className="bg-violet-200 p-2 w-100 rounded-lg h-50"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg h-50"
             id="instructions_rezept"
             placeholder="z.B. 1. Mehl und Milch mischen..."
             value={newRecipeInst}
@@ -201,12 +201,12 @@ const EditRecipe = () => {
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="url_rezept">
+          <label className="lg:w-60 w-20" htmlFor="url_rezept">
             Url zum Bild:{" "}
           </label>
           <input
             onChange={handleChangeUrl}
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="url_rezept"
             type="text"
             value={newRecipeUrl}

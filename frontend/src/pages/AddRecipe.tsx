@@ -206,17 +206,17 @@ const uploadRecipeImg = async () => {
         className="flex flex-col items-center gap-5 p-10"
       >
         <div className="flex justify-evenly w-full">
-          <h1 className="font-bold text-3xl">Füge ein neues Rezept hinzu</h1>
-          <button className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer">
+          <h1 className="font-bold lg:text-3xl text-xl">Füge ein neues Rezept hinzu</h1>
+          <button className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg lg:p-3 p-1 cursor-pointer">
             Rezept hinzufügen
           </button>
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="category">
+          <label className="lg:w-60 w-20" htmlFor="category">
             Wähle eine Kategorie:
           </label>
           <select
-            className="w-100 bg-violet-200 p-2 rounded-lg"
+            className="lg:w-100 w-50 bg-violet-200 p-2 rounded-lg"
             name="category"
             id="category"
             ref={recipeCategory}
@@ -234,11 +234,11 @@ const uploadRecipeImg = async () => {
           </select>
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="name_rezept">
+          <label className="lg:w-60 w-20" htmlFor="name_rezept">
             Name des Rezepts:
           </label>
           <input
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="name_rezept"
             type="text"
             placeholder="z.B. Kaiserschmarrn"
@@ -246,22 +246,22 @@ const uploadRecipeImg = async () => {
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="desc_rezept">
+          <label className="lg:w-60 w-20" htmlFor="desc_rezept">
             Beschreibung des Rezepts:
           </label>
           <textarea
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="desc_rezept"
             placeholder="z.B. Ein leckeres Dessert aus Tirol"
             ref={recipeDesc}
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="servings_rezept">
+          <label className="lg:w-60 w-20" htmlFor="servings_rezept">
             Anzahl der Portionen:
           </label>
           <input
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="servings_rezept"
             type="number"
             ref={recipeServings}
@@ -271,7 +271,7 @@ const uploadRecipeImg = async () => {
         <div className="flex flex-col gap-5">
           {ingredients.map((ingredient, index) => (
             <div key={index} className="flex flex-row gap-5 items-center">
-              <p className="w-60">{index === 0 ? "Zutaten:" : ""}</p>
+              <p className="lg:w-60 w-20">{index === 0 ? "Zutaten:" : ""}</p>
               <div className="flex gap-5">
                 <div className="flex flex-col">
                   <label htmlFor={`menge-${index}`}>Menge:</label>
@@ -314,8 +314,8 @@ const uploadRecipeImg = async () => {
             </div>
           ))}
           <div className="flex gap-5">
-            <p className="w-60"></p>
-            <div className="w-100 flex gap-5">
+            <p className="lg:w-60 w-20"></p>
+            <div className="lg:w-100 w-50 flex gap-5">
               <p
                 onClick={handleAddIngredient}
                 className="inline-flex bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer"
@@ -327,33 +327,33 @@ const uploadRecipeImg = async () => {
         </div>
 
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="instructions_rezept">
+          <label className="lg:w-60 w-20" htmlFor="instructions_rezept">
             Anleitung des Rezepts:
           </label>
           <textarea
-            className="bg-violet-200 p-2 w-100 rounded-lg h-50"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg h-50"
             id="instructions_rezept"
             placeholder="z.B. 1. Mehl und Milch mischen..."
             ref={recipeInstructions}
           />
         </div>
         <div className="flex flex-row gap-5 items-center">
-          <label className="w-60" htmlFor="url_rezept">
+          <label className="lg:w-60 w-20" htmlFor="url_rezept">
             Url zum Bild:
           </label>
           <input
-            className="bg-violet-200 p-2 w-100 rounded-lg"
+            className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
             id="url_rezept"
             type="text"
             ref={recipeUrl}
           />
         </div>
         <div className="flex gap-5">
-          <label htmlFor="img-upload" className="w-60">
+          <label htmlFor="img-upload" className="lg:w-60 w-20">
                   Eigenes Bild hochladen:
                 </label>
                 <input
-                  className="bg-violet-200 p-2 w-100 rounded-lg"
+                  className="bg-violet-200 p-2 lg:w-100 w-50 rounded-lg"
                   type="file"
                   accept="image/*"
                   id="img-upload"

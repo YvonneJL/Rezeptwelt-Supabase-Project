@@ -50,7 +50,7 @@ const Nav = () => {
 
 
     return ( 
-        <nav className="flex lg:px-20 lg:py-7 p-2 justify-between items-center">
+        <nav className="flex lg:flex-row flex-col gap-5 lg:px-20 lg:py-7 p-2 justify-between items-center">
             <article className="flex gap-2 lg:pl-70">
                 <img className="h-5" src="/images/Ico.svg" alt="coffee cup" />
                 <p className="text-sm">Rezeptwelt</p>
