@@ -65,7 +65,6 @@ const Profile = () => {
     return fotoUrl;
   };
 
-  console.log(user);
 
   //Funktion, um sowohl Email, also auch userName zu ändern
   function handleChangeData() {
