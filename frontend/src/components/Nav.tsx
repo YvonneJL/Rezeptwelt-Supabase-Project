@@ -64,7 +64,7 @@ const Nav = () => {
             {/* hier wird getoggelt je nachdem ob man eingeloggt ist oder nicht */}
             {!hideSignUp && !isLoggedIn && <Link to={"/signup"} className="font-bold text-sm transform hover:scale-120 transition-all duration-300">Sign up</Link>}
             {isLoggedIn && <Link to="/profile">
-            {user.img_url ? <img className="transform hover:scale-120 transition-all duration-300 w-10 h-10 rounded-full object-cover object-center" src={user.img_url} alt="Profile Picture"/> : <div className="flex justify-center items-center w-10 h-10 rounded-full object-cover object-center bg-violet-300">🧑‍🍳</div>}
+            {user?.img_url ? <img className="transform hover:scale-120 transition-all duration-300 w-10 h-10 rounded-full object-cover object-center" src={user?.img_url} alt="Profile Picture"/> : <div className="flex justify-center items-center w-10 h-10 rounded-full object-cover object-center bg-violet-300">🧑‍🍳</div>}
             </Link>}
             {isLoggedIn && <button onClick={logout} className="font-bold text-sm transform hover:scale-120 transition-all duration-300">Log Out</button>}
         </nav>

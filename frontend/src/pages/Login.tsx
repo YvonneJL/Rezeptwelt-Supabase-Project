@@ -48,7 +48,7 @@ const Login = () => {
                 setMessage("Du hast ein falsches Passwort oder einen falschen Benutzernamen eingegeben")
             } else {
                 setIsLoggedIn(true)
-                navigate("/profile")
+                navigate("/")
             }
         } catch (error) {
             console.log(error);

@@ -87,13 +87,13 @@ const RecipeDetail = () => {
             )}
             <h2 className="text-2xl">Schritte:</h2>
             <p className="font-semibold break-before-number">{`${recipeData[0]?.instructions} for ${recipeData[0]?.servings} servings`}</p>
-            { user.username === recipeData[0].added_by && <button
+            { user?.username === recipeData[0].added_by && <button
               className="w-40 bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer items-center"
               onClick={() => navigate(`/editrecipe/${recipeData[0]?.id}`)}
             >
               Rezept ändern
             </button>}
-        {  user.username === recipeData[0].added_by &&  <button
+        {  user?.username === recipeData[0].added_by &&  <button
               className="w-40 bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer items-center"
               onClick={deleteRecipe}
             >

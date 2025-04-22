@@ -101,7 +101,7 @@ const Profile = () => {
           //folgende Zeile nachträglich für den FotoUpload hinzugefügt
           // nach Fragezeichen (oder), den Wert aus Tabelle ziehen
           // wenn ich das nicht schreibe, wird "null" als neuer Wert für Tabelle genutzt und die URL aus usprünglich hochgeladenem Bild verschwindet
-          img_url: uploadedImgUrl ?? user.img_url,
+          img_url: uploadedImgUrl ?? user?.img_url,
         })
         .eq("id", user.id);
       console.log(data);
@@ -164,7 +164,7 @@ const Profile = () => {
       <article className="flex flex-col p-10 items-center">
         {/* Bild wird nur angezeigt, wenn es eine url gibt ansonsten ein lila Kreis in derselben Größe */}
         {user?.img_url ? (
-          <img src={user.img_url} alt="Profilbild" className="w-40 h-40 rounded-full object-cover object-center" />
+          <img src={user?.img_url} alt="Profilbild" className="w-40 h-40 rounded-full object-cover object-center" />
         ): <div className="flex justify-center items-center w-40 h-40 rounded-full object-cover object-center bg-violet-300 text-6xl">🧑‍🍳</div>}
         <h1 className="p-10 text-3xl">
           {user

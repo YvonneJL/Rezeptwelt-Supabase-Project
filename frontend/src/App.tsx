@@ -51,6 +51,8 @@ function App() {
 }, [setUser, setIsLoggedIn])
 
 
+
+
 // useEffect(() => {
 //   const { data: subscription } = supabase.auth.onAuthStateChange(
 //     async (event, session) => {
