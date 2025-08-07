@@ -84,7 +84,7 @@ const SignUp = () => {
                 await setIsLoggedIn(true)
                 console.log("Signup erfolgreich:", data);
                 console.log("isLoggedIn vor navigate:", isLoggedIn);
-                navigate("/profile")
+                navigate("/")
                 console.log("isLoggedIn nach navigate:", isLoggedIn);
                 console.log("Navigated zu /recipes");
             }
