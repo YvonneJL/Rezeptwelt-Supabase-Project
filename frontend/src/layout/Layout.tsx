@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HeroImage1 from "../components/HeroImage1";
