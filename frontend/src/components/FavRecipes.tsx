@@ -91,7 +91,7 @@ const FavRecipes = () => {
                 </div>}
              </div>
               <p className="text-sm w-4/5">{recipe.description}</p>
-              {recipe.added_by === user.username && <button className="w-40 bg-violet-200 border-2 border-violet-400 rounded-xl p-2 text-sm cursor-pointer transform hover:scale-110 transition-all duration-300" onClick={()=>deleteRecipe(recipe.id.toString())}>Rezept entfernen</button>}
+              {recipe.added_by === user?.username && <button className="w-40 bg-violet-200 border-2 border-violet-400 rounded-xl p-2 text-sm cursor-pointer transform hover:scale-110 transition-all duration-300" onClick={()=>deleteRecipe(recipe.id.toString())}>Rezept entfernen</button>}
               <Link className="bg-violet-400 p-3 self-baseline rounded-xl transform hover:scale-110 transition-all duration-300" to={`/${recipe.id}`}>Zum Rezept</Link>
               </div>
               

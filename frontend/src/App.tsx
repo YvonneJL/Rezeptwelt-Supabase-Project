@@ -34,22 +34,39 @@ function App() {
   //kommt aus ProtectedRoute
   //Authentifizierung User
   //muss hier rein, sonst geht isLoggedIn auf false, wenn ich die Seite refreshe
+ const checkLoginStatus = async () => {
+    const {data: user} = await supabase
+    .auth
+    .getUser()
+
+    //musste diesen Fetch auch noch in die App.tsx hinzu, damit ich mir die genauen Daten vom suer ziehen kann
+    //nur der Fetch oben drüber häte nur den Token geholt - so wären nicht gleich die Daten vom eingeloggten user geladen worden sondern die von der Person davor
+    //jetzt laden direkt die Daten vom neuen User - nicht erst wenn ich auf Profile.tsx klicke
+    const { data: customer, error } = await supabase
+    .from("customers")
+    .select("*")
+    // hier muss ich user.user schrieben, da ich aus dem ersten Fetch eins drüber user als Objekt zurück bekomme und dann da rein muss
+    //wenn ich oben const data: {user} geschrieben hätte, hätte ich schon destructured und müsste es nicht mit .user rein navigieren
+    .eq("id", user?.user?.id);
+
+  if (error) {
+    console.log("Der Fetch hat an dieser Stelle nicht geklappt", error);
+    setLoading(false)
+  } else {
+    setUser(customer?.[0] || null);
+    setIsLoggedIn(true)
+  }
+
+
+    // console.log(user);
+    // if (user.user !== null) {
+    //     //setUser(user.user as unknown as IUser)
+    // }
+}
+
   useEffect(()=> {
-    const checkLoginStatus = async () => {
-        const {data: user} = await supabase
-        .auth
-        .getUser()
-
-        console.log(user);
-        if (user.user !== null) {
-            setUser(user.user as unknown as IUser)
-            setIsLoggedIn(true)
-        }
-        setLoading(false)
-    }
     checkLoginStatus()
-}, [setUser, setIsLoggedIn])
-
+}, [setUser, isLoggedIn])
 
 // useEffect(() => {
 //   const { data: subscription } = supabase.auth.onAuthStateChange(
