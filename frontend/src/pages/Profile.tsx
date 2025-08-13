@@ -136,7 +136,7 @@ const Profile = () => {
     }
 
     //hier lösche ich bzw update ich die img_url aus der customer Tabelle beim entspr. customer
-    const {data, error} =  await supabase
+    const {error} =  await supabase
     .from("customers")
     .update({
       img_url: null
