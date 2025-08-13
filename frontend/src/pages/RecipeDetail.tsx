@@ -19,6 +19,7 @@ const RecipeDetail = () => {
 
   //isLoggedin ziehen, um button "Rezept entfernen" zu toggeln, ja nach Login Status
   const {isLoggedIn}  = useContext(mainContext) as IFavRecipeProps;
+  console.log(isLoggedIn)
   //user, um Rezept löschen Button nur anzeigen zu lassen, wenn user Rezept ursprünglich hinzugefügt hat
   const {user} = useContext(mainContext) as IUserProps
 
@@ -66,16 +67,16 @@ const RecipeDetail = () => {
       {recipeData && (
         <section>
           <div
-            className="relative lg:h-91 h-25 bg-no-repeat bg-cover bg-center w-screen flex justify-center items-center"
+            className="relative lg:h-91 h-45 bg-no-repeat bg-cover bg-center w-screen flex justify-center items-center"
             //! Ich muss mit [0] arbeiten, da Daten zwar nur ein Objekt sind aber in einem Array verschachtelt
             style={{ backgroundImage: `url(${recipeData[0]?.upload_url ? recipeData[0].upload_url : recipeData[0].url})` }}
           >
-            <div className="absolute inset-0 bg-black opacity-20 h-24 md:h-91"></div>
+            <div className="absolute inset-0 bg-black opacity-20 h-45 md:h-91"></div>
           </div>
           <section className="flex flex-col py-10 lg:px-20 px-10 gap-5">
-            <h1 className="text-6xl font-semibold">{recipeData[0]?.name}</h1>
+            <h1 className="md:text-6xl text-4xl font-semibold">{recipeData[0]?.name}</h1>
 
-            <h2 className="text-2xl">Zutaten:</h2>
+            <h2 className="text-2xl">{`Zutaten für ${recipeData[0]?.servings} Portionen:`}</h2>
             {ingredientsData && (
               <ul className="flex flex-col gap-2">
                 {ingredientsData.map((ingredient) => (
@@ -86,7 +87,14 @@ const RecipeDetail = () => {
               </ul>
             )}
             <h2 className="text-2xl">Schritte:</h2>
-            <p className="font-semibold break-before-number">{`${recipeData[0]?.instructions} for ${recipeData[0]?.servings} servings`}</p>
+            {/* <p className="font-semibold break-before-number">{recipeData[0]?.instructions}</p> */}
+            {recipeData[0]?.instructions
+  ?.split(/\s*(?=\d+\.)/)
+  .map((step, index) => (
+    <p key={index} className="">
+      {step.trim()}
+    </p>
+))}
             { user?.username === recipeData[0].added_by && <button
               className="w-40 bg-violet-200 border-2 border-violet-400 rounded-lg p-3 cursor-pointer items-center"
               onClick={() => navigate(`/editrecipe/${recipeData[0]?.id}`)}

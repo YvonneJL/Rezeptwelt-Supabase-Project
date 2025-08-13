@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { mainContext } from "../context/Mainprovider";
 import { Navigate } from "react-router-dom";
 import { IMainProps } from "../App";

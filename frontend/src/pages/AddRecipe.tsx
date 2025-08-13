@@ -122,7 +122,8 @@ const uploadRecipeImg = async () => {
       .single();
 
     // Standardwert, falls keine Zutaten existieren
-    let nextIngredientId = 101; 
+    let nextIngredientId = 101;
+    console.log(nextIngredientId) 
 
     // falls es Daten aus dem Backend gibt, wird hier die größte id +1 genommen
     if (data) {

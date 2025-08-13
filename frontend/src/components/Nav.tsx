@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ReactEventHandler, useContext, useEffect } from "react";
+import { useContext} from "react";
 import { mainContext } from "../context/Mainprovider";
 import supabase from "../utils/supabase";
 import { ILoggedInProps } from "../pages/Login";
